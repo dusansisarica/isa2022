@@ -1,5 +1,6 @@
 package BloodClinic.bloodclinic.service;
 
+import BloodClinic.bloodclinic.dto.LoginDto;
 import BloodClinic.bloodclinic.dto.RegistrationDto;
 import BloodClinic.bloodclinic.dto.UserDto;
 import BloodClinic.bloodclinic.mapper.UserDTOMapper;
@@ -88,5 +89,13 @@ public class UserService {
             return true;
         }
         return false;
+    }
+
+    public UserDto login(LoginDto loginDto){
+        User user = userRepository.findByEmailAndPassword(loginDto.email, loginDto.password);
+        if(user != null){
+            return userDTOMapper.fromModeltoDTO(user);
+        }
+        return null;
     }
 }
