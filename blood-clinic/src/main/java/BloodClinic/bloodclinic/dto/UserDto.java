@@ -19,4 +19,9 @@ public class UserDto {
     public String jmbg;
     public Gender gender;
     public String job;
+    public boolean deleted;
+    public boolean activated;
+    public String verificationCode;
+
+
 }

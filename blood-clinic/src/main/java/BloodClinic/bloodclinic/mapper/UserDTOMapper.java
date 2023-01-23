@@ -28,10 +28,6 @@ public class UserDTOMapper {
     }
 
     public static User fromRegistrationDTOtoModel(RegistrationDto registrationDto){
-        /*Gender gender;
-        if (registrationDto.gender.equals("MALE")) gender = Gender.MALE;
-        else if (registrationDto.gender.equals("FEMALE")) gender = Gender.FEMALE;
-        else gender = Gender.OTHER;*/
         return new User(null, registrationDto.email, registrationDto.passwordFirst, registrationDto.name, registrationDto.surname, AddressDtoMapper.fromDTOtoModel(registrationDto.address), registrationDto.phone_number, registrationDto.jmbg, registrationDto.job, registrationDto.gender);
     }
 

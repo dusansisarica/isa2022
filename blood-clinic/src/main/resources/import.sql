@@ -10,4 +10,4 @@ insert into address (address, city, country) VALUES ('Zeleznicka 5', 'Novi Sad',
 insert into address (address, city, country) VALUES ('Zeleznicka 6', 'Novi Sad', 'Serbia');
 insert into address (address, city, country) VALUES ('Zeleznicka 7', 'Novi Sad', 'Serbia');
 
-insert into users (email, gender, jmbg, job, name, password, phone_number, surname, address_id) VALUES ('dusansisarica@gmail.com', 'MALE', '124124124', 'student', 'Dusan', 'Dusan123', '062131241', 'Sisarica', 1);
+insert into users (email, gender, activated, deleted, jmbg, job, name, password, phone_number, surname, address_id) VALUES ('dsisarica40@gmail.com', 'MALE', true, false, '124124124', 'student', 'Dusan', 'Dusan123', '062131241', 'Sisarica', 1);

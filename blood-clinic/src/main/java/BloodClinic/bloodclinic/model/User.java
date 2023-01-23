@@ -31,6 +31,12 @@ public class User {
     private Gender gender;
     @Column
     private String job;
+    @Column
+    private boolean deleted;
+    @Column
+    private boolean activated;
+    @Column(name = "verification_code", length = 64)
+    private String verificationCode;
 
     public Integer getId() {
         return id;
