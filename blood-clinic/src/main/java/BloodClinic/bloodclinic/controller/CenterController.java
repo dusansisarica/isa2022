@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RequestMapping(value = "api/centers", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "api/centers")
 @RestController
 @CrossOrigin
 public class CenterController {

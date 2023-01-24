@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
+
 @Getter
 @Setter
 public class UserDto {
@@ -23,6 +25,5 @@ public class UserDto {
     public boolean activated;
     public String verificationCode;
     public Integer penalty;
-
-
+    public Set<AppointmentDto> appointments;
 }

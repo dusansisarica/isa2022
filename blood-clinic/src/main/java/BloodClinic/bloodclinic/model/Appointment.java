@@ -27,6 +27,10 @@ public class Appointment {
     @JoinColumn(name = "user_id", nullable = true)
     private User user;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "center_id", nullable = false)
+    private Center center;
+
     @Column
     private boolean done;
 }

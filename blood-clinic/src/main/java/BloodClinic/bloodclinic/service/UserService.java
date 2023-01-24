@@ -49,8 +49,13 @@ public class UserService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(dto.passwordFirst));
         String randomCode = RandomString.make(64);
         user.setVerificationCode(randomCode);
+        user.setPenalty(0);
         sendVerificationEmail(user, siteURL);
         return userDTOMapper.fromModeltoDTO(userRepository.save(user));
+    }
+
+    public void save(User user){
+        userRepository.save(user);
     }
 
     public boolean verify(String verificationCode) {

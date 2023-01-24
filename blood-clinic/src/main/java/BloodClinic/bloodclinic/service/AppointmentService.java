@@ -3,6 +3,7 @@ package BloodClinic.bloodclinic.service;
 import BloodClinic.bloodclinic.dto.AppointmentDto;
 import BloodClinic.bloodclinic.mapper.AppointmentDtoMapper;
 import BloodClinic.bloodclinic.model.Appointment;
+import BloodClinic.bloodclinic.model.User;
 import BloodClinic.bloodclinic.repository.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,9 @@ public class AppointmentService {
     }
 
     public AppointmentDto cancelAppointment(Appointment appointment){
+        User user = appointment.getUser();
+        user.getAppointments().remove(appointment);
+        userService.save(user);
         appointment.setUser(null);
         appointmentRepository.save(appointment);
         return appointmentDtoMapper.fromModeltoDTO(appointment);

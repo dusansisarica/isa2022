@@ -1,8 +1,14 @@
 package BloodClinic.bloodclinic.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 public class Center {
 
     @Id
@@ -16,6 +22,8 @@ public class Center {
     private String description;
     @Column(name = "avg_grade")
     private double avgGrade;
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<Appointment> appointments;
 
     public Center() {
     }
