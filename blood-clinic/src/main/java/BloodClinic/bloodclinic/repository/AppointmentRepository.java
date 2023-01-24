@@ -10,4 +10,5 @@ import java.util.List;
 public interface AppointmentRepository extends JpaRepository<Appointment, Integer> {
     List<Appointment> findByUserAndDoneTrue(User user);
     List<Appointment> findByUserAndDoneFalse(User user);
+    List<Appointment> findAllByCenterAndUserNull(Center center);
 }

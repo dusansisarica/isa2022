@@ -3,6 +3,7 @@ package BloodClinic.bloodclinic.service;
 import BloodClinic.bloodclinic.dto.AppointmentDto;
 import BloodClinic.bloodclinic.mapper.AppointmentDtoMapper;
 import BloodClinic.bloodclinic.model.Appointment;
+import BloodClinic.bloodclinic.model.Center;
 import BloodClinic.bloodclinic.model.User;
 import BloodClinic.bloodclinic.repository.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +46,9 @@ public class AppointmentService {
         appointment.setUser(null);
         appointmentRepository.save(appointment);
         return appointmentDtoMapper.fromModeltoDTO(appointment);
+    }
+
+    public List<AppointmentDto> findAllAvailableForOneCenter(Center center){
+        return appointmentDtoMapper.fromModeltoDTOList(appointmentRepository.findAllByCenterAndUserNull(center));
     }
 }
