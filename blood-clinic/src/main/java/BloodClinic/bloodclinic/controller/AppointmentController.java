@@ -13,7 +13,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @RequestMapping(value = "api/appointments", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -51,7 +53,7 @@ public class AppointmentController {
 
     @GetMapping("/schedule/{id}")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<AppointmentDto> scheduleAppointment(@PathVariable Integer id, HttpServletRequest request){
+    public ResponseEntity<AppointmentDto> scheduleAppointment(@PathVariable Integer id, HttpServletRequest request) throws Exception {
         String email = tokenUtils.getEmailFromToken(tokenUtils.getToken(request));
         return new ResponseEntity<>(appointmentService.scheduleAppointment(id, email), HttpStatus.OK);
     }

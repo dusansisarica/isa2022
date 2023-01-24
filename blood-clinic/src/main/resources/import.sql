@@ -13,12 +13,16 @@ insert into address (address, city, country) VALUES ('Zeleznicka 7', 'Novi Sad',
 /*sifra je Dusan123 za oba*/
 insert into users (email, gender, activated, deleted, jmbg, job, name, password, phone_number, surname, address_id, penalty) VALUES ('dsisarica40@gmail.com', 'MALE', true, false, '124124124', 'student', 'Dusan', '$2a$10$nU6EsmjOywLNk0wXyJNkq.q0Wjp8A1iUZy9AVLG6tjUdHpNMzWOEe', '062131241', 'Sisarica', 1, 0);
 insert into users (email, gender, activated, deleted, jmbg, job, name, password, phone_number, surname, address_id, penalty) VALUES ('dukisuzuki@gmail.com', 'MALE', true, false, '124124124', 'student', 'Dusan', '$2a$10$nU6EsmjOywLNk0wXyJNkq.q0Wjp8A1iUZy9AVLG6tjUdHpNMzWOEe', '062131241', 'Sisarica', 1, 2);
+insert into users (email, gender, activated, deleted, jmbg, job, name, password, phone_number, surname, address_id, penalty) VALUES ('dusansisarica@gmail.com', 'MALE', true, false, '124124124', 'student', 'Dusan', '$2a$10$nU6EsmjOywLNk0wXyJNkq.q0Wjp8A1iUZy9AVLG6tjUdHpNMzWOEe', '062131241', 'Sisarica', 1, 2);
+insert into users (email, gender, activated, deleted, jmbg, job, name, password, phone_number, surname, address_id, penalty) VALUES ('sisarica.u@gmail.com', 'MALE', true, false, '124124124', 'student', 'Uros', '$2a$10$nU6EsmjOywLNk0wXyJNkq.q0Wjp8A1iUZy9AVLG6tjUdHpNMzWOEe', '062131241', 'Sisarica', 1, 2);
 
 insert into role (name) VALUES ('ROLE_ADMIN');
 insert into role (name) VALUES ('ROLE_USER');
 
 insert into user_role (user_id, role_id) VALUES (1,1);
 insert into user_role (user_id, role_id) VALUES (2,2);
+insert into user_role (user_id, role_id) VALUES (3,2);
+insert into user_role (user_id, role_id) VALUES (4,2);
 
 insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('25/01/2023 19:00', 30, null, false, 1);
 insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('26/01/2023 19:00', 30, 1, false, 3);
