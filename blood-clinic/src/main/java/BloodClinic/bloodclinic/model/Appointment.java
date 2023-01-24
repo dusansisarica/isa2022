@@ -7,6 +7,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -23,13 +25,19 @@ public class Appointment {
     @Column(name = "duration", unique = false, nullable = true)
     private Duration duration;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = true)
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "center_id", nullable = false)
     private Center center;
+
+   /* @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_scheduled_appointment",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name="appointment_id", referencedColumnName = "id"))
+    private Set<User> alreadyScheduled;*/
 
     @Column
     private boolean done;

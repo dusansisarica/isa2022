@@ -57,4 +57,5 @@ public class AppointmentController {
         String email = tokenUtils.getEmailFromToken(tokenUtils.getToken(request));
         return new ResponseEntity<>(appointmentService.scheduleAppointment(id, email), HttpStatus.OK);
     }
+
 }

@@ -5,6 +5,7 @@ import BloodClinic.bloodclinic.mapper.AppointmentDtoMapper;
 import BloodClinic.bloodclinic.model.Appointment;
 import BloodClinic.bloodclinic.model.Center;
 import BloodClinic.bloodclinic.model.User;
+import BloodClinic.bloodclinic.model.UserAppointment;
 import BloodClinic.bloodclinic.repository.AppointmentRepository;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -48,6 +49,8 @@ public class AppointmentService {
     private AppointmentDtoMapper appointmentDtoMapper;
     @Autowired
     private JavaMailSender mailSender;
+    @Autowired
+    private UserAppointmentService userAppointmentService;
 
     public List<AppointmentDto> findFinishedAppointmentsForUser(String email) {
         return appointmentDtoMapper.fromModeltoDTOList(appointmentRepository.findByUserAndDoneTrue(userService.findByEmail(email)));
@@ -88,6 +91,10 @@ public class AppointmentService {
         user.getAppointments().add(appointment);
         appointmentRepository.save(appointment);
         userService.save(user);
+        UserAppointment userAppointment = new UserAppointment();
+        userAppointment.setAppointment(appointment);
+        userAppointment.setUser(user);
+        userAppointmentService.save(userAppointment);
         sendEmail(appointment);
         return appointmentDtoMapper.fromModeltoDTO(appointment);
     }

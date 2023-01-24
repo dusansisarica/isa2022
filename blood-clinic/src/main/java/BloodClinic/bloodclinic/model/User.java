@@ -45,7 +45,7 @@ public class User implements UserDetails {
     private boolean activated;
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany()
     private Set<Appointment> appointments;
     @Column
     private Integer penalty;

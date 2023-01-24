@@ -64,3 +64,13 @@ insert into users_appointments (users_id, appointments_id) VALUES (2,8);
 insert into users_appointments (users_id, appointments_id) VALUES (2,9);
 insert into users_appointments (users_id, appointments_id) VALUES (2,10);
 
+insert into user_appointment (user_id, appointment_id) VALUES (1,2);
+insert into user_appointment (user_id, appointment_id) VALUES (1,3);
+insert into user_appointment (user_id, appointment_id) VALUES (2,5);
+insert into user_appointment (user_id, appointment_id) VALUES (2,6);
+insert into user_appointment (user_id, appointment_id) VALUES (2,7);
+insert into user_appointment (user_id, appointment_id) VALUES (2,8);
+insert into user_appointment (user_id, appointment_id) VALUES (2,9);
+insert into user_appointment (user_id, appointment_id) VALUES (2,10);
+
+
