@@ -36,6 +36,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.Base64;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,9 +53,43 @@ public class AppointmentService {
     @Autowired
     private UserAppointmentService userAppointmentService;
 
-    public List<AppointmentDto> findFinishedAppointmentsForUser(String email) {
-        return appointmentDtoMapper.fromModeltoDTOList(appointmentRepository.findByUserAndDoneTrue(userService.findByEmail(email)));
+    public List<AppointmentDto> findFinishedAppointmentsForUser(String email, String sort_by) {
+        List<Appointment> appointments = appointmentRepository.findByUserAndDoneTrue(userService.findByEmail(email));
+        switch (sort_by){
+            case "asc(date)":
+                return sortFinishedAppointmentsByDateAsc(appointments);
+            case "desc(date)":
+                return sortFinishedAppointmentsByDateDesc(appointments);
+            case "asc(duration)":
+                return sortFinishedAppointmentsByDurationAsc(appointments);
+            case "desc(duration)":
+                return sortFinishedAppointmentsByDurationDesc(appointments);
+            default:
+                return appointmentDtoMapper.fromModeltoDTOList(appointments);
+
+        }
     }
+
+    private List<AppointmentDto> sortFinishedAppointmentsByDurationAsc(List<Appointment> appointments) {
+        appointments.sort(Comparator.comparing(Appointment::getDuration));
+        return appointmentDtoMapper.fromModeltoDTOList(appointments);
+    }
+
+    private List<AppointmentDto> sortFinishedAppointmentsByDurationDesc(List<Appointment> appointments) {
+        appointments.sort(Comparator.comparing(Appointment::getDuration).reversed());
+        return appointmentDtoMapper.fromModeltoDTOList(appointments);
+    }
+
+    public List<AppointmentDto> sortFinishedAppointmentsByDateAsc(List<Appointment> appointments){
+        appointments.sort(Comparator.comparing(Appointment::getStartDate));
+        return appointmentDtoMapper.fromModeltoDTOList(appointments);
+    }
+
+    public List<AppointmentDto> sortFinishedAppointmentsByDateDesc(List<Appointment> appointments){
+        appointments.sort(Comparator.comparing(Appointment::getStartDate).reversed());
+        return appointmentDtoMapper.fromModeltoDTOList(appointments);
+    }
+
 
     public List<AppointmentDto> findScheduledAppointmentsForUser(String email) {
         return appointmentDtoMapper.fromModeltoDTOList(appointmentRepository.findByUserAndDoneFalse(userService.findByEmail(email)));

@@ -35,8 +35,8 @@ public class AppointmentController {
 
     @GetMapping("/finished")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<List<AppointmentDto>> findFinishedAppointments(HttpServletRequest request){
-        return new ResponseEntity<>(appointmentService.findFinishedAppointmentsForUser(tokenUtils.getEmailFromToken(tokenUtils.getToken(request))), HttpStatus.OK);
+    public ResponseEntity<List<AppointmentDto>> findFinishedAppointments(HttpServletRequest request, @RequestParam(value = "sort_by", defaultValue = "") String sort_by){
+        return new ResponseEntity<>(appointmentService.findFinishedAppointmentsForUser(tokenUtils.getEmailFromToken(tokenUtils.getToken(request)), sort_by), HttpStatus.OK);
     }
 
     @GetMapping("/scheduled")

@@ -24,20 +24,20 @@ insert into user_role (user_id, role_id) VALUES (2,2);
 insert into user_role (user_id, role_id) VALUES (3,2);
 insert into user_role (user_id, role_id) VALUES (4,2);
 
-insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('25/01/2023 19:00', 30, null, false, 1);
-insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('26/01/2023 19:00', 30, 1, false, 3);
-insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('25/01/2023 21:00', 30, 1, false, 2);
-insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('28/01/2023 21:00', 30, null, false, 5);
-insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('26/01/2023 14:30', 30, 2, false, 4);
-insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('26/01/2023 15:00', 30, 2, false, 4);
-insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('23/01/2023 15:30', 30, 2, true, 2);
-insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('23/01/2023 16:00', 30, 2, true, 4);
+insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('24/01/2023 19:00', 30, 3, true, 1);
+insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('26/01/2023 19:00', 40, 1, false, 3);
+insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('25/01/2023 21:00', 20, 1, false, 2);
+insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('24/01/2023 21:00', 220, 3, true, 5);
+insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('26/01/2023 14:30', 40, 2, false, 4);
+insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('26/01/2023 15:00', 60, 2, false, 4);
+insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('23/01/2023 15:30', 70, 2, true, 2);
+insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('23/01/2023 16:00', 80, 2, true, 4);
 insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('23/01/2023 16:30', 30, 2, true, 5);
 insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('25/01/2023 10:30', 30, 2, false, 1);
-insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('28/01/2023 13:30', 30, null, false, 1);
-insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('28/01/2023 10:30', 30, null, false, 2);
-insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('29/01/2023 11:30', 30, null, false, 2);
-insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('27/01/2023 12:30', 30, null, false, 3);
+insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('22/01/2023 13:30', 30, 3, true, 1);
+insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('28/01/2023 10:30', 20, null, false, 2);
+insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('29/01/2023 11:30', 10, null, false, 2);
+insert into appointment (start_date, duration, user_id, done, center_id) VALUES ('27/01/2023 12:30', 5, null, false, 3);
 
 insert into center_appointments (center_id, appointments_id) VALUES (1,1);
 insert into center_appointments (center_id, appointments_id) VALUES (1,10);
@@ -63,6 +63,9 @@ insert into users_appointments (users_id, appointments_id) VALUES (2,7);
 insert into users_appointments (users_id, appointments_id) VALUES (2,8);
 insert into users_appointments (users_id, appointments_id) VALUES (2,9);
 insert into users_appointments (users_id, appointments_id) VALUES (2,10);
+insert into users_appointments (users_id, appointments_id) VALUES (3,1);
+insert into users_appointments (users_id, appointments_id) VALUES (3,5);
+insert into users_appointments (users_id, appointments_id) VALUES (3,11);
 
 insert into user_appointment (user_id, appointment_id) VALUES (1,2);
 insert into user_appointment (user_id, appointment_id) VALUES (1,3);
@@ -72,5 +75,8 @@ insert into user_appointment (user_id, appointment_id) VALUES (2,7);
 insert into user_appointment (user_id, appointment_id) VALUES (2,8);
 insert into user_appointment (user_id, appointment_id) VALUES (2,9);
 insert into user_appointment (user_id, appointment_id) VALUES (2,10);
+insert into user_appointment (user_id, appointment_id) VALUES (3,1);
+insert into user_appointment (user_id, appointment_id) VALUES (3,5);
+insert into user_appointment (user_id, appointment_id) VALUES (3,11);
 
 
