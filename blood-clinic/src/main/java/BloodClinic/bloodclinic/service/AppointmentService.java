@@ -51,4 +51,14 @@ public class AppointmentService {
     public List<AppointmentDto> findAllAvailableForOneCenter(Center center){
         return appointmentDtoMapper.fromModeltoDTOList(appointmentRepository.findAllByCenterAndUserNull(center));
     }
+
+    public AppointmentDto scheduleAppointment(Integer id, String email) {
+        Appointment appointment = appointmentRepository.findById(id).orElse(null);
+        User user = userService.findByEmail(email);
+        appointment.setUser(user);
+        user.getAppointments().add(appointment);
+        appointmentRepository.save(appointment);
+        userService.save(user);
+        return appointmentDtoMapper.fromModeltoDTO(appointment);
+    }
 }

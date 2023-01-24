@@ -48,4 +48,11 @@ public class AppointmentController {
     public ResponseEntity<AppointmentDto> cancelScheduledAppointments(@PathVariable Integer id){
         return new ResponseEntity<>(appointmentService.cancelScheduledAppointmentsForUser(id), HttpStatus.OK);
     }
+
+    @GetMapping("/schedule/{id}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<AppointmentDto> scheduleAppointment(@PathVariable Integer id, HttpServletRequest request){
+        String email = tokenUtils.getEmailFromToken(tokenUtils.getToken(request));
+        return new ResponseEntity<>(appointmentService.scheduleAppointment(id, email), HttpStatus.OK);
+    }
 }
