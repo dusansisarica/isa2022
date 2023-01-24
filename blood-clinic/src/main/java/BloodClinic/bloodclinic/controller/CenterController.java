@@ -32,8 +32,8 @@ public class CenterController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<List<AppointmentDto>> findAvailableAppointments(@PathVariable Integer id){
-        return new ResponseEntity<>(centerService.findAvailableAppointments(id), HttpStatus.OK);
+    public ResponseEntity<List<AppointmentDto>> findAvailableAppointments(@PathVariable Integer id, @RequestParam(value = "sort_by", defaultValue = "") String sort_by){
+        return new ResponseEntity<>(centerService.findAvailableAppointments(id, sort_by), HttpStatus.OK);
     }
 
     /*@GetMapping()

@@ -70,12 +70,12 @@ public class AppointmentService {
         }
     }
 
-    private List<AppointmentDto> sortFinishedAppointmentsByDurationAsc(List<Appointment> appointments) {
+    public List<AppointmentDto> sortFinishedAppointmentsByDurationAsc(List<Appointment> appointments) {
         appointments.sort(Comparator.comparing(Appointment::getDuration));
         return appointmentDtoMapper.fromModeltoDTOList(appointments);
     }
 
-    private List<AppointmentDto> sortFinishedAppointmentsByDurationDesc(List<Appointment> appointments) {
+    public List<AppointmentDto> sortFinishedAppointmentsByDurationDesc(List<Appointment> appointments) {
         appointments.sort(Comparator.comparing(Appointment::getDuration).reversed());
         return appointmentDtoMapper.fromModeltoDTOList(appointments);
     }
@@ -118,6 +118,11 @@ public class AppointmentService {
     public List<AppointmentDto> findAllAvailableForOneCenter(Center center) {
         return appointmentDtoMapper.fromModeltoDTOList(appointmentRepository.findAllByCenterAndUserNull(center));
     }
+
+    public List<Appointment> findAllAvailableForOneCenterModel(Center center) {
+        return appointmentRepository.findAllByCenterAndUserNull(center);
+    }
+
 
     public AppointmentDto scheduleAppointment(Integer id, String email) throws Exception {
         Appointment appointment = appointmentRepository.findById(id).orElse(null);
