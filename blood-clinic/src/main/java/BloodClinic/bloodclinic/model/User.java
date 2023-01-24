@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.JoinColumn;
 
@@ -44,6 +45,8 @@ public class User implements UserDetails {
     private boolean activated;
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
+    @OneToMany()
+    private Set<Appointment> appointments;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),

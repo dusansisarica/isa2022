@@ -119,6 +119,10 @@ public class UserService implements UserDetailsService {
         else return user;
     }
 
+    public User findByEmail(String email){
+        return userRepository.findByEmail(email);
+    }
+
 /*    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return null;
