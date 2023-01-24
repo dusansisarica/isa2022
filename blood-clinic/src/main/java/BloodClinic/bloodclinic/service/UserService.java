@@ -4,35 +4,48 @@ import BloodClinic.bloodclinic.dto.LoginDto;
 import BloodClinic.bloodclinic.dto.RegistrationDto;
 import BloodClinic.bloodclinic.dto.UserDto;
 import BloodClinic.bloodclinic.mapper.UserDTOMapper;
+import BloodClinic.bloodclinic.model.Role;
 import BloodClinic.bloodclinic.model.User;
 import BloodClinic.bloodclinic.repository.UserRepository;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Autowired
     private UserDTOMapper userDTOMapper;
     @Autowired
     private JavaMailSender mailSender;
+    @Autowired
+    private RoleService roleService;
 
     public UserDto save(RegistrationDto dto, String siteURL)throws MessagingException, UnsupportedEncodingException {
         User user = userDTOMapper.fromRegistrationDTOtoModel(dto);
         user.setActivated(false);
         user.setDeleted(false);
+        List<Role> roles = new ArrayList<>();
+        roles.add(roleService.findByName("ROLE_USER"));
+        user.setRoles(roles);
+        user.setPassword(passwordEncoder.encode(dto.passwordFirst));
         String randomCode = RandomString.make(64);
         user.setVerificationCode(randomCode);
         sendVerificationEmail(user, siteURL);
@@ -98,4 +111,16 @@ public class UserService {
         }
         return null;
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email);
+        if (user == null) throw new UsernameNotFoundException(String.format("No user found with email '%s'.", email));
+        else return user;
+    }
+
+/*    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
+    }*/
 }

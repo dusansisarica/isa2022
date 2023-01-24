@@ -10,4 +10,11 @@ insert into address (address, city, country) VALUES ('Zeleznicka 5', 'Novi Sad',
 insert into address (address, city, country) VALUES ('Zeleznicka 6', 'Novi Sad', 'Serbia');
 insert into address (address, city, country) VALUES ('Zeleznicka 7', 'Novi Sad', 'Serbia');
 
-insert into users (email, gender, activated, deleted, jmbg, job, name, password, phone_number, surname, address_id) VALUES ('dsisarica40@gmail.com', 'MALE', true, false, '124124124', 'student', 'Dusan', 'Dusan123', '062131241', 'Sisarica', 1);
+/*sifra je Dusan123 za oba*/
+insert into users (email, gender, activated, deleted, jmbg, job, name, password, phone_number, surname, address_id) VALUES ('dsisarica40@gmail.com', 'MALE', true, false, '124124124', 'student', 'Dusan', '$2a$10$nU6EsmjOywLNk0wXyJNkq.q0Wjp8A1iUZy9AVLG6tjUdHpNMzWOEe', '062131241', 'Sisarica', 1);
+insert into users (email, gender, activated, deleted, jmbg, job, name, password, phone_number, surname, address_id) VALUES ('dukisuzuki@gmail.com', 'MALE', true, false, '124124124', 'student', 'Dusan', '$2a$10$nU6EsmjOywLNk0wXyJNkq.q0Wjp8A1iUZy9AVLG6tjUdHpNMzWOEe', '062131241', 'Sisarica', 1);
+
+insert into role (name) VALUES ('ROLE_ADMIN');
+insert into role (name) VALUES ('ROLE_USER');
+
+insert into user_role (user_id, role_id) VALUES (1,1);
