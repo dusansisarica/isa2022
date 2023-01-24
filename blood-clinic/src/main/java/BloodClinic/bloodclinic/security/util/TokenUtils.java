@@ -1,11 +1,9 @@
 package BloodClinic.bloodclinic.security.util;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import BloodClinic.bloodclinic.model.Role;
 import BloodClinic.bloodclinic.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -53,14 +51,13 @@ public class TokenUtils {
     /**
      * Funkcija za generisanje JWT tokena.
      *
-     * @param username Korisničko ime korisnika kojem se token izdaje
+     * @param email Korisničko ime korisnika kojem se token izdaje
      * @return JWT token
      */
-    public String generateToken(String email, List<Role> roleName) {
+    public String generateToken(String email) {
         return Jwts.builder()
                 .setIssuer(APP_NAME)
                 .setSubject(email)
-                .claim("role", roleName)
                 .setAudience(generateAudience())
                 .setIssuedAt(new Date())
                 .setExpiration(generateExpirationDate())
@@ -72,6 +69,7 @@ public class TokenUtils {
 
     /**
      * Funkcija za utvrđivanje tipa uređaja za koji se JWT kreira.
+     *
      * @return Tip uređaja.
      */
     private String generateAudience() {
@@ -125,6 +123,7 @@ public class TokenUtils {
 
     /**
      * Funkcija za preuzimanje vlasnika tokena (korisničko ime).
+     *
      * @param token JWT token.
      * @return Korisničko ime iz tokena ili null ukoliko ne postoji.
      */
@@ -160,6 +159,7 @@ public class TokenUtils {
 
     /**
      * Funkcija za preuzimanje datuma kreiranja tokena.
+     *
      * @param token JWT token.
      * @return Datum kada je token kreiran.
      */
@@ -246,7 +246,7 @@ public class TokenUtils {
     /**
      * Funkcija za validaciju JWT tokena.
      *
-     * @param token JWT token.
+     * @param token       JWT token.
      * @param userDetails Informacije o korisniku koji je vlasnik JWT tokena.
      * @return Informacija da li je token validan ili ne.
      */
@@ -258,13 +258,13 @@ public class TokenUtils {
         // Token je validan kada:
         return (email != null // korisnicko ime nije null
                 && email.equals(((User) userDetails).getEmail())); // korisnicko ime iz tokena se podudara sa korisnickom imenom koje pise u bazi
-                //&& !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate())); // nakon kreiranja tokena korisnik nije menjao svoju lozinku
+        //&& !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate())); // nakon kreiranja tokena korisnik nije menjao svoju lozinku
     }
 
     /**
      * Funkcija proverava da li je lozinka korisnika izmenjena nakon izdavanja tokena.
      *
-     * @param created Datum kreiranja tokena.
+     * @param created           Datum kreiranja tokena.
      * @param lastPasswordReset Datum poslednje izmene lozinke.
      * @return Informacija da li je token kreiran pre poslednje izmene lozinke ili ne.
      */
@@ -287,7 +287,6 @@ public class TokenUtils {
      * Funkcija za preuzimanje sadržaja AUTH_HEADER-a iz zahteva.
      *
      * @param request HTTP zahtev.
-     *
      * @return Sadrzaj iz AUTH_HEADER-a.
      */
     public String getAuthHeaderFromHeader(HttpServletRequest request) {

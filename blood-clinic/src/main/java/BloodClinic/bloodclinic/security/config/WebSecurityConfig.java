@@ -78,7 +78,9 @@ public class WebSecurityConfig {
 
         // sve neautentifikovane zahteve obradi uniformno i posalji 401 gresku
         http.exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
-        http.authorizeRequests().antMatchers("/api/registration").permitAll()	// /h2-console/** ako se koristi H2 baza)// /api/foo
+        http.authorizeRequests().antMatchers("/api/registration").permitAll()
+                .antMatchers("/api/centers").permitAll()
+                // /h2-console/** ako se koristi H2 baza)// /api/foo
                 // ukoliko ne zelimo da koristimo @PreAuthorize anotacije nad metodama kontrolera, moze se iskoristiti hasRole() metoda da se ogranici
                 // koji tip korisnika moze da pristupi odgovarajucoj ruti. Npr. ukoliko zelimo da definisemo da ruti 'admin' moze da pristupi
                 // samo korisnik koji ima rolu 'ADMIN', navodimo na sledeci nacin:
@@ -110,6 +112,7 @@ public class WebSecurityConfig {
         // Dozvoljena POST metoda na ruti /auth/login, za svaki drugi tip HTTP metode greska je 401 Unauthorized
         return (web) -> web.ignoring().antMatchers(HttpMethod.PUT, "/api/login")
                 .antMatchers(HttpMethod.POST, "/api/registration")
+                .antMatchers("/api/registration/verify")
                 // Ovim smo dozvolili pristup statickim resursima aplikacije
                 .antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "favicon.ico",
                         "/**/*.html", "/**/*.css", "/**/*.js");
