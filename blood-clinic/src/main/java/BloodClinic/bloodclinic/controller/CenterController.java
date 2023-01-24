@@ -13,7 +13,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequestMapping(value = "api/centers")
 @RestController
@@ -24,8 +26,8 @@ public class CenterController {
 
     @GetMapping()
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<List<CenterDto>> findAll(){
-        return new ResponseEntity<>(centerService.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<CenterDto>> findAll(@RequestParam(value = "sort_by", defaultValue = "") String sort_by){
+        return new ResponseEntity<>(centerService.findAll(sort_by), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -33,4 +35,10 @@ public class CenterController {
     public ResponseEntity<List<AppointmentDto>> findAvailableAppointments(@PathVariable Integer id){
         return new ResponseEntity<>(centerService.findAvailableAppointments(id), HttpStatus.OK);
     }
+
+    /*@GetMapping()
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<List<CenterDto>> sortByNameAsc(){
+        return new ResponseEntity<>(centerService.filterByNameAsc(), HttpStatus.OK);
+    }*/
 }

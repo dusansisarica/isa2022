@@ -1,14 +1,14 @@
-insert into center (address, avg_grade, description, name) VALUES ('Adresa 4', 3.4, 'Jako dobar', 'Centar 1');
-insert into center (address, avg_grade, description, name) VALUES ('Adresa 1', 3.7, 'sadads', 'Centar 2');
-insert into center (address, avg_grade, description, name) VALUES ('Adresa 1a', 4.4, 'ads', 'Centar 3');
-insert into center (address, avg_grade, description, name) VALUES ('Adresa 2', 1.4, 'sadads', 'Centar 4');
-insert into center (address, avg_grade, description, name) VALUES ('Adresa 3', 2.9, 'ss', 'Centar 5');
+insert into center (address, avg_grade, description, name) VALUES ('Zeleznicka 3', 3.4, 'Jako dobar', 'Novi Centar');
+insert into center (address, avg_grade, description, name) VALUES ('Janka Veselinovica 5', 3.7, 'sadads', 'Centar Dobra Krv');
+insert into center (address, avg_grade, description, name) VALUES ('Novaka Pejcica 24', 4.4, 'ads', 'A centar');
+insert into center (address, avg_grade, description, name) VALUES ('Sarajevska 4', 1.4, 'sadads', 'Daj Krv');
+insert into center (address, avg_grade, description, name) VALUES ('Augusta Cesarca 35', 2.9, 'ss', 'Kula centar');
 
 insert into address (address, city, country) VALUES ('Zeleznicka 3', 'Novi Sad', 'Serbia');
-insert into address (address, city, country) VALUES ('Zeleznicka 4', 'Novi Sad', 'Serbia');
-insert into address (address, city, country) VALUES ('Zeleznicka 5', 'Novi Sad', 'Serbia');
-insert into address (address, city, country) VALUES ('Zeleznicka 6', 'Novi Sad', 'Serbia');
-insert into address (address, city, country) VALUES ('Zeleznicka 7', 'Novi Sad', 'Serbia');
+insert into address (address, city, country) VALUES ('Novaka Pejcica 20', 'Kula', 'Serbia');
+insert into address (address, city, country) VALUES ('Zeleznicka 5', 'Beograd', 'Serbia');
+insert into address (address, city, country) VALUES ('Augusta Cesarca', 'Valjevo', 'Serbia');
+insert into address (address, city, country) VALUES ('Novaka Pejcica 26', 'Novi Sad', 'Serbia');
 
 /*sifra je Dusan123 za oba*/
 insert into users (email, gender, activated, deleted, jmbg, job, name, password, phone_number, surname, address_id, penalty) VALUES ('dsisarica40@gmail.com', 'MALE', true, false, '124124124', 'student', 'Dusan', '$2a$10$nU6EsmjOywLNk0wXyJNkq.q0Wjp8A1iUZy9AVLG6tjUdHpNMzWOEe', '062131241', 'Sisarica', 1, 0);
