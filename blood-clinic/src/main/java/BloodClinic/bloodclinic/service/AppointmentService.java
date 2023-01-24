@@ -87,6 +87,9 @@ public class AppointmentService {
     public AppointmentDto scheduleAppointment(Integer id, String email) throws Exception {
         Appointment appointment = appointmentRepository.findById(id).orElse(null);
         User user = userService.findByEmail(email);
+        if (userAppointmentService.findAppointment(user, appointment) != null){
+            return null;
+        }
         appointment.setUser(user);
         user.getAppointments().add(appointment);
         appointmentRepository.save(appointment);

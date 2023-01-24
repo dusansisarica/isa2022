@@ -55,7 +55,9 @@ public class AppointmentController {
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<AppointmentDto> scheduleAppointment(@PathVariable Integer id, HttpServletRequest request) throws Exception {
         String email = tokenUtils.getEmailFromToken(tokenUtils.getToken(request));
-        return new ResponseEntity<>(appointmentService.scheduleAppointment(id, email), HttpStatus.OK);
+        AppointmentDto appointmentDto = appointmentService.scheduleAppointment(id, email);
+        if (appointmentDto != null) return new ResponseEntity<>(appointmentDto, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
 }
