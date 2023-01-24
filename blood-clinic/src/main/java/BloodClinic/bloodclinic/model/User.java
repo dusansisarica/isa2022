@@ -45,8 +45,10 @@ public class User implements UserDetails {
     private boolean activated;
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
-    @OneToMany()
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Appointment> appointments;
+    @Column
+    private Integer penalty;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),

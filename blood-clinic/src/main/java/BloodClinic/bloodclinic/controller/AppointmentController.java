@@ -11,10 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -34,10 +31,21 @@ public class AppointmentController {
     }
 
 
-    @GetMapping()
+    @GetMapping("/finished")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<AppointmentDto>> findFinishedAppointments(HttpServletRequest request){
         return new ResponseEntity<>(appointmentService.findFinishedAppointmentsForUser(tokenUtils.getEmailFromToken(tokenUtils.getToken(request))), HttpStatus.OK);
+    }
 
+    @GetMapping("/scheduled")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<List<AppointmentDto>> findScheduledAppointments(HttpServletRequest request){
+        return new ResponseEntity<>(appointmentService.findScheduledAppointmentsForUser(tokenUtils.getEmailFromToken(tokenUtils.getToken(request))), HttpStatus.OK);
+    }
+
+    @GetMapping("/cancel/{id}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<AppointmentDto> cancelScheduledAppointments(@PathVariable Integer id){
+        return new ResponseEntity<>(appointmentService.cancelScheduledAppointmentsForUser(id), HttpStatus.OK);
     }
 }

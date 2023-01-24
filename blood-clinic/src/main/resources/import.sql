@@ -11,8 +11,8 @@ insert into address (address, city, country) VALUES ('Zeleznicka 6', 'Novi Sad',
 insert into address (address, city, country) VALUES ('Zeleznicka 7', 'Novi Sad', 'Serbia');
 
 /*sifra je Dusan123 za oba*/
-insert into users (email, gender, activated, deleted, jmbg, job, name, password, phone_number, surname, address_id) VALUES ('dsisarica40@gmail.com', 'MALE', true, false, '124124124', 'student', 'Dusan', '$2a$10$nU6EsmjOywLNk0wXyJNkq.q0Wjp8A1iUZy9AVLG6tjUdHpNMzWOEe', '062131241', 'Sisarica', 1);
-insert into users (email, gender, activated, deleted, jmbg, job, name, password, phone_number, surname, address_id) VALUES ('dukisuzuki@gmail.com', 'MALE', true, false, '124124124', 'student', 'Dusan', '$2a$10$nU6EsmjOywLNk0wXyJNkq.q0Wjp8A1iUZy9AVLG6tjUdHpNMzWOEe', '062131241', 'Sisarica', 1);
+insert into users (email, gender, activated, deleted, jmbg, job, name, password, phone_number, surname, address_id, penalty) VALUES ('dsisarica40@gmail.com', 'MALE', true, false, '124124124', 'student', 'Dusan', '$2a$10$nU6EsmjOywLNk0wXyJNkq.q0Wjp8A1iUZy9AVLG6tjUdHpNMzWOEe', '062131241', 'Sisarica', 1, 0);
+insert into users (email, gender, activated, deleted, jmbg, job, name, password, phone_number, surname, address_id, penalty) VALUES ('dukisuzuki@gmail.com', 'MALE', true, false, '124124124', 'student', 'Dusan', '$2a$10$nU6EsmjOywLNk0wXyJNkq.q0Wjp8A1iUZy9AVLG6tjUdHpNMzWOEe', '062131241', 'Sisarica', 1, 2);
 
 insert into role (name) VALUES ('ROLE_ADMIN');
 insert into role (name) VALUES ('ROLE_USER');
@@ -29,6 +29,8 @@ insert into appointment (start_date, duration, user_id, done) VALUES ('26/01/202
 insert into appointment (start_date, duration, user_id, done) VALUES ('23/01/2023 15:30', 30, 2, true);
 insert into appointment (start_date, duration, user_id, done) VALUES ('23/01/2023 16:00', 30, 2, true);
 insert into appointment (start_date, duration, user_id, done) VALUES ('23/01/2023 16:30', 30, 2, true);
+insert into appointment (start_date, duration, user_id, done) VALUES ('25/01/2023 10:30', 30, 2, false);
+
 
 insert into users_appointments (users_id, appointments_id) VALUES (1,2);
 insert into users_appointments (users_id, appointments_id) VALUES (1,3);
@@ -37,4 +39,5 @@ insert into users_appointments (users_id, appointments_id) VALUES (2,6);
 insert into users_appointments (users_id, appointments_id) VALUES (2,7);
 insert into users_appointments (users_id, appointments_id) VALUES (2,8);
 insert into users_appointments (users_id, appointments_id) VALUES (2,9);
+insert into users_appointments (users_id, appointments_id) VALUES (2,10);
 

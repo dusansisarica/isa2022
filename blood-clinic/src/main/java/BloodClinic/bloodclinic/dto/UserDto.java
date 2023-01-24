@@ -22,6 +22,7 @@ public class UserDto {
     public boolean deleted;
     public boolean activated;
     public String verificationCode;
+    public Integer penalty;
 
 
 }

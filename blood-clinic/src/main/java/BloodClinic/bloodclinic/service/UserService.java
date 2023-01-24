@@ -11,6 +11,7 @@ import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -121,6 +122,15 @@ public class UserService implements UserDetailsService {
 
     public User findByEmail(String email){
         return userRepository.findByEmail(email);
+    }
+
+    @Scheduled(cron = "0 0 0 1 * ?")
+    public void removePenalty() throws InterruptedException {
+        List<User> users = userRepository.findAll();
+        for (User u : users){
+            u.setPenalty(0);
+        }
+        userRepository.saveAll(users);
     }
 
 /*    @Override
