@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping(value = "api/login")
+@CrossOrigin
 public class LoginController {
     @Autowired
     private TokenUtils tokenUtils;
