@@ -1,0 +1,23 @@
+<h1>Scheduled appointments</h1>
+<nz-table #basicTable [nzData]="appointments">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Duration</th>
+        <th>Employee</th>
+        <th>Centar</th>
+        <th>Address</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let appointment of appointments">
+        <td>{{ appointment.startDate }}</td>
+        <td>{{ appointment.duration }} minutes</td>
+        <td>{{ appointment.centerAdministrator.name }} {{appointment.centerAdministrator.surname}}</td>
+        <td>{{ appointment.center.name }}</td>
+        <td>{{ appointment.center.address }}</td>
+        <td><a (click)="cancelAppointment(appointment.id)"><b>Cancel appointment</b></a></td>
+      </tr>
+    </tbody>
+  </nz-table> 

@@ -1,6 +1,9 @@
 package BloodClinic.bloodclinic.service;
 
 import BloodClinic.bloodclinic.dto.ComplaintAnswerDto;
+import BloodClinic.bloodclinic.dto.ComplaintAnswerReturnDto;
+import BloodClinic.bloodclinic.dto.ComplaintForCenterReturnDto;
+import BloodClinic.bloodclinic.dto.ComplaintForEmployeeReturnDto;
 import BloodClinic.bloodclinic.model.ComplaintAnswer;
 import BloodClinic.bloodclinic.model.ComplaintForCenter;
 import BloodClinic.bloodclinic.model.ComplaintForWorker;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,12 +35,30 @@ public class ComplaintsService {
     @Autowired
     private UserService userService;
 
-    public List<ComplaintForCenter> findAllForCenter() {
-        return complaintForCenterRepository.findAll();
+    public List<ComplaintForCenterReturnDto> findAllForCenter() {
+        List<ComplaintForCenterReturnDto> dto = new ArrayList<>();
+        for (ComplaintForCenter c : complaintForCenterRepository.findAll() ){
+            ComplaintForCenterReturnDto newDto = new ComplaintForCenterReturnDto();
+            newDto.setId(c.getId());
+            newDto.setCenter(c.getCenter());
+            newDto.setUser(c.getUser().getEmail());
+            newDto.setText(c.getText());
+            dto.add(newDto);
+        }
+        return dto;
     }
 
-    public List<ComplaintForWorker> findAllForEmployee() {
-        return complaintForEmployeeRepository.findAll();
+    public List<ComplaintForEmployeeReturnDto> findAllForEmployee() {
+        List<ComplaintForEmployeeReturnDto> dto = new ArrayList<>();
+        for (ComplaintForWorker c : complaintForEmployeeRepository.findAll()){
+            ComplaintForEmployeeReturnDto newDto = new ComplaintForEmployeeReturnDto();
+            newDto.setCenterAdministrator(c.getCenterAdministrator());
+            newDto.setId(c.getId());
+            newDto.setUser(c.getUser().getEmail());
+            newDto.setText(c.getText());
+            dto.add(newDto);
+        }
+        return dto;
     }
 
     public ComplaintAnswer answer(ComplaintAnswerDto complaintAnswer) throws MessagingException, UnsupportedEncodingException {
@@ -86,7 +108,17 @@ public class ComplaintsService {
         return complaintAnswerRepository.findAll();
     }
 
-    public List<ComplaintAnswer> findAllForUser(Integer id) {
-        return complaintAnswerRepository.findByEmail((userService.findUserById(id)).getEmail());
+    public List<ComplaintAnswerReturnDto> findAllForUser(String email) {
+        List<ComplaintAnswerReturnDto> dto = new ArrayList<>();
+        for(ComplaintAnswer c : complaintAnswerRepository.findByEmail(email)){
+            ComplaintAnswerReturnDto dtoNew = new ComplaintAnswerReturnDto();
+            dtoNew.setAnswer(c.getAnswer());
+            dtoNew.setComplaintForCenter(c.getComplaintForCenter());
+            dtoNew.setComplaintForEmployee(c.getComplaintForEmployee());
+            dtoNew.setEmail(c.getEmail());
+            dtoNew.setId(c.getId());
+            dto.add(dtoNew);
+        }
+        return dto;
     }
 }

@@ -13,7 +13,8 @@ import javax.persistence.SecondaryTable;
 @Setter
 public class ComplaintForCenterDto {
     public Integer id;
-    public Integer center;
+    public Integer center_id;
+    //public Center center;
     public String user;
     public String text;
 }

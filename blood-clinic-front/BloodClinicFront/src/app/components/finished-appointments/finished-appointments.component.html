@@ -1,0 +1,45 @@
+<span class="sort"><h3>Sort centers by: </h3>
+    <nz-select ngModel="gender" nzPlaceHolder="Select sorting" (ngModelChange)="sortBy($event)">
+      <nz-option nzValue="asc(date)" nzLabel="asc(date)"></nz-option>
+      <nz-option nzValue="desc(date)" nzLabel="desc(date)"></nz-option>
+      <nz-option nzValue="asc(duration)" nzLabel="asc(duration)"></nz-option>
+      <nz-option nzValue="desc(duration)" nzLabel="desc(duration)"></nz-option>
+    </nz-select></span>
+    <button (click)="resetSort()">Reset</button>
+       <br>
+       <br>
+<h1>Finished appointments</h1>
+<nz-table #basicTable [nzData]="appointments">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Duration</th>
+        <th>Employee</th>
+        <th>Centar</th>
+        <th>Address</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let appointment of appointments">
+        <td>{{ appointment.startDate }}</td>
+        <td>{{ appointment.duration }} minutes</td>
+        <td>{{ appointment.centerAdministrator.name }} {{appointment.centerAdministrator.surname}}</td>
+        <td>{{ appointment.center.name }}</td>
+        <td>{{ appointment.center.address }}</td>
+        <td>
+          <a (click)="setCenter(appointment.id)">Write complaint for center</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a (click)="setEmployee(appointment.id)">Write complaint for employee</a>
+        </td>
+        <td *ngIf="showCenter(appointment.id)">
+        <textarea [(ngModel)] = "str"></textarea><br>
+        <a (click)="sendComplaintForCenter(appointment.center.id)">Send complaint for center</a>
+      </td>
+      <td *ngIf="showEmployee(appointment.id)">
+        <textarea [(ngModel)] = "str"></textarea><br>
+        <a (click)="sendComplaintForEmployee(appointment.centerAdministrator.id)">Send complaint for employee</a>
+      </td>
+      </tr>
+    </tbody>
+  </nz-table> 

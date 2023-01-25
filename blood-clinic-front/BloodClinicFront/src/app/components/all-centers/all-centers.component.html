@@ -1,4 +1,14 @@
-    <nz-table #basicTable [nzData]="centers">
+<span class="sort"><h3>Sort centers by: </h3>
+<nz-select ngModel="gender" nzPlaceHolder="Select sorting" (ngModelChange)="sortBy($event)">
+  <nz-option nzValue="asc(name)" nzLabel="asc(name)"></nz-option>
+  <nz-option nzValue="desc(name)" nzLabel="desc(name)"></nz-option>
+  <nz-option nzValue="asc(avgGrade)" nzLabel="asc(avgGrade)"></nz-option>
+  <nz-option nzValue="desc(avgGrade)" nzLabel="desc(avgGrade)"></nz-option>
+</nz-select></span>
+<button (click)="resetSort()">Reset</button>
+   <br>
+   <br>
+   <nz-table #basicTable [nzData]="centers">
       <thead>
         <tr>
           <th>Name</th>

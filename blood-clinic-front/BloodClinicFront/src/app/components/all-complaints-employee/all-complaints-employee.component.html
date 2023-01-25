@@ -1,0 +1,26 @@
+<h1>Complaints</h1>
+<nz-table #basicTable [nzData]="complaints">
+    <thead>
+      <tr>
+        <th>To</th>
+        <th>From</th>
+        <th>About</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let complaint of complaints">
+        <td>{{ complaint.centerAdministrator.name }} {{ complaint.centerAdministrator.surname}}</td>
+        <td>{{ complaint.user }}</td>
+        <td>{{ complaint.text }}</td>
+        <td>
+          <a (click)="setId(complaint.id)">Answer</a>
+        </td>
+        <td *ngIf="show(complaint.id)">
+        <textarea [(ngModel)] = "str"></textarea><br>
+        <a (click)="sendAnswer(complaint.user, complaint.id)">Answer</a>
+      </td>
+      </tr>
+    </tbody>
+  </nz-table> 

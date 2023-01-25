@@ -22,4 +22,32 @@ export class HomepageComponent implements OnInit {
     this.router.navigateByUrl(`login`);
   }
 
+  public showScheduledAppointments(){
+    this.router.navigateByUrl(`homepage/appointments/scheduled`);
+  }
+
+  public showFinishedAppointments(){
+    this.router.navigateByUrl(`homepage/appointments/finished`);
+  }
+
+  public isUser(){
+    return localStorage.getItem("role") == "ROLE_USER";
+  }
+
+  public isAdmin(){
+    return localStorage.getItem("role") == "ROLE_ADMIN";
+  }
+
+  public showCenterComplaints(){
+    this.router.navigateByUrl(`homepage/complaints/center`);
+  }
+
+  public showEmployeeComplaints(){
+    this.router.navigateByUrl(`homepage/complaints/employee`);
+  }
+
+  public showAnsweredComplaints(){
+    this.router.navigateByUrl(`homepage/complaints/answers`);
+  }
+
 }

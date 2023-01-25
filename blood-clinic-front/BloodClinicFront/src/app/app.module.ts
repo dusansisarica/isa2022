@@ -17,6 +17,11 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import { AllCentersComponent } from './components/all-centers/all-centers.component';
 import { AuthInterceptor } from './interceptor/auth-interceptor';
 import { OneCenterComponent } from './components/one-center/one-center.component';
+import { SheduledAppointmentsComponent } from './components/sheduled-appointments/sheduled-appointments.component';
+import { FinishedAppointmentsComponent } from './components/finished-appointments/finished-appointments.component';
+import { AllComplaintsCenterComponent } from './components/all-complaints/all-complaints.component';
+import { AllComplaintsEmployeeComponent } from './components/all-complaints-employee/all-complaints-employee.component';
+import { AnswersComponent } from './components/answers/answers.component';
 
 registerLocaleData(en);
 
@@ -27,7 +32,12 @@ registerLocaleData(en);
     RegistrationComponent,
     HomepageComponent,
     AllCentersComponent,
-    OneCenterComponent
+    OneCenterComponent,
+    SheduledAppointmentsComponent,
+    FinishedAppointmentsComponent,
+    AllComplaintsCenterComponent,
+    AllComplaintsEmployeeComponent,
+    AnswersComponent
   ],
   imports: [
     BrowserModule,

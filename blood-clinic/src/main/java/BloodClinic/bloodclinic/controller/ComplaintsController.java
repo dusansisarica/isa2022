@@ -1,10 +1,10 @@
 package BloodClinic.bloodclinic.controller;
 
-import BloodClinic.bloodclinic.dto.AppointmentDto;
-import BloodClinic.bloodclinic.dto.ComplaintAnswerDto;
+import BloodClinic.bloodclinic.dto.*;
 import BloodClinic.bloodclinic.model.ComplaintAnswer;
 import BloodClinic.bloodclinic.model.ComplaintForCenter;
 import BloodClinic.bloodclinic.model.ComplaintForWorker;
+import BloodClinic.bloodclinic.security.util.TokenUtils;
 import BloodClinic.bloodclinic.service.ComplaintsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,9 +24,15 @@ public class ComplaintsController {
     @Autowired
     private ComplaintsService complaintsService;
 
+    private TokenUtils tokenUtils;
+
+    public ComplaintsController(TokenUtils tokenHelper) {
+        this.tokenUtils = tokenHelper;
+    }
+
     @GetMapping("/center")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<ComplaintForCenter>> findAllForCenter(){
+    public ResponseEntity<List<ComplaintForCenterReturnDto>> findAllForCenter(){
         return new ResponseEntity<>(complaintsService.findAllForCenter(), HttpStatus.OK);
     }
 
@@ -36,10 +42,11 @@ public class ComplaintsController {
         return new ResponseEntity<>(complaintsService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/answered")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<List<ComplaintAnswer>> findAllAnsweredForUser(@PathVariable Integer id){
-        return new ResponseEntity<>(complaintsService.findAllForUser(id), HttpStatus.OK);
+    public ResponseEntity<List<ComplaintAnswerReturnDto>> findAllAnsweredForUser(HttpServletRequest request){
+        String email = tokenUtils.getEmailFromToken(tokenUtils.getToken(request));
+        return new ResponseEntity<>(complaintsService.findAllForUser(email), HttpStatus.OK);
     }
 
     @PostMapping("/answer")
@@ -51,7 +58,7 @@ public class ComplaintsController {
 
     @GetMapping("/employee")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<ComplaintForWorker>> findAllForEmployee(){
+    public ResponseEntity<List<ComplaintForEmployeeReturnDto>> findAllForEmployee(){
         return new ResponseEntity<>(complaintsService.findAllForEmployee(), HttpStatus.OK);
     }
 }

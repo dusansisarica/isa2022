@@ -30,4 +30,17 @@ export class AllCentersComponent implements OnInit {
     this.router.navigateByUrl(`homepage/centers/${id}`);
   }
 
+  public sortBy(event : any){
+    this.centerService.getAllCentersSort("?sort_by=" + event).subscribe(data => {
+      this.centers = data;
+
+    }, error => {
+      alert("Error");
+    })
+  }
+
+  public resetSort(): void {
+    this.getAllCenters();
+  }
+
 }

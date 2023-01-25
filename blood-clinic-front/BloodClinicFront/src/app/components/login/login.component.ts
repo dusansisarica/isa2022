@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(body).subscribe(data => {
       localStorage.setItem('jwt', data.accessToken);
       const user = data;
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('role', data.role[0].name);
       this.router.navigate(['homepage']);
     }, error => { 
       this.errorLogin = true;   

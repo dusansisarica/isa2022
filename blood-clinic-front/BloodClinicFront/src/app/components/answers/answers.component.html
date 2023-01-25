@@ -1,0 +1,16 @@
+<h1>Answered Complaints:</h1>
+<nz-table #basicTable [nzData]="answers">
+    <thead>
+      <tr>
+        <th>About</th>
+        <th>Answer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let answer of answers">
+        <td *ngIf="answer.complaintForCenter">{{ answer.complaintForCenter.text }}</td>
+        <td *ngIf="answer.complaintForEmployee">{{ answer.complaintForEmployee.text }}</td>
+        <td>{{ answer.answer }}</td>
+      </tr>
+    </tbody>
+  </nz-table> 

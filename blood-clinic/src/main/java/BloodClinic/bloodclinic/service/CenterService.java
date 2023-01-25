@@ -95,7 +95,7 @@ public class CenterService {
 
     public ComplaintForCenter writeComplaintForCenter(ComplaintForCenterDto complaint) {
         ComplaintForCenter complaintForCenter = new ComplaintForCenter();
-        complaintForCenter.setCenter(centerRepositrory.findById(complaint.getCenter()).orElse(null));
+        complaintForCenter.setCenter(centerRepositrory.findById(complaint.getCenter_id()).orElse(null));
         complaintForCenter.setUser(userService.findByEmail(complaint.getUser()));
         complaintForCenter.setText(complaint.getText());
         complaintRepository.save(complaintForCenter);

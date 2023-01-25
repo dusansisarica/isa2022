@@ -1,18 +1,29 @@
 package BloodClinic.bloodclinic.dto;
 
+import BloodClinic.bloodclinic.model.Role;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
+
+@Getter
+@Setter
 public class UserTokenState {
 
     private String accessToken;
     private Long expiresIn;
+    private List<Role> role;
 
     public UserTokenState() {
         this.accessToken = null;
         this.expiresIn = null;
+        this.role = null;
     }
 
-    public UserTokenState(String accessToken, long expiresIn) {
+    public UserTokenState(String accessToken, long expiresIn, List<Role> role) {
         this.accessToken = accessToken;
         this.expiresIn = expiresIn;
+        this.role = role;
     }
 
     public String getAccessToken() {

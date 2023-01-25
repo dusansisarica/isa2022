@@ -28,6 +28,13 @@ public class CenterController {
     @Autowired
     private CenterService centerService;
 
+    private TokenUtils tokenUtils;
+
+    public CenterController(TokenUtils tokenHelper) {
+        this.tokenUtils = tokenHelper;
+    }
+
+
     @GetMapping()
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<CenterDto>> findAll(@RequestParam(value = "sort_by", defaultValue = "") String sort_by){
@@ -35,14 +42,15 @@ public class CenterController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') || hasRole('ADMIN')")
     public ResponseEntity<CenterAppointmentDto> findAvailableAppointments(@PathVariable Integer id, @RequestParam(value = "sort_by", defaultValue = "") String sort_by){
         return new ResponseEntity<>(centerService.findAvailableAppointments(id, sort_by), HttpStatus.OK);
     }
 
-    @PostMapping("/complaint/{id}")
+    @PostMapping("/complaint")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<ComplaintForCenter> writeComplaintForCenter(@RequestBody ComplaintForCenterDto complaint){
+    public ResponseEntity<ComplaintForCenter> writeComplaintForCenter(@RequestBody ComplaintForCenterDto complaint, HttpServletRequest request){
+        complaint.setUser(tokenUtils.getEmailFromToken(tokenUtils.getToken(request)));
         return new ResponseEntity<>(centerService.writeComplaintForCenter(complaint), HttpStatus.OK);
     }
 
