@@ -1,12 +1,15 @@
 package BloodClinic.bloodclinic.service;
 
+import BloodClinic.bloodclinic.dto.ComplaintForWorkerDto;
 import BloodClinic.bloodclinic.dto.LoginDto;
 import BloodClinic.bloodclinic.dto.RegistrationDto;
 import BloodClinic.bloodclinic.dto.UserDto;
 import BloodClinic.bloodclinic.mapper.UserDTOMapper;
-import BloodClinic.bloodclinic.model.Role;
-import BloodClinic.bloodclinic.model.User;
+import BloodClinic.bloodclinic.model.*;
+import BloodClinic.bloodclinic.repository.CenterEmployeeRepository;
+import BloodClinic.bloodclinic.repository.ComplaintForEmployeeRepository;
 import BloodClinic.bloodclinic.repository.UserRepository;
+import BloodClinic.bloodclinic.security.util.TokenUtils;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -24,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -38,6 +42,10 @@ public class UserService implements UserDetailsService {
     private JavaMailSender mailSender;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private CenterEmployeeRepository centerEmployeeRepository;
+    @Autowired
+    private ComplaintForEmployeeRepository complaintForEmployeeRepository;
 
     public UserDto save(RegistrationDto dto, String siteURL)throws MessagingException, UnsupportedEncodingException {
         User user = userDTOMapper.fromRegistrationDTOtoModel(dto);
@@ -99,6 +107,8 @@ public class UserService implements UserDetailsService {
 
     }
 
+
+
     public List<UserDto> findAll() {
         return userDTOMapper.fromModeltoDTOList(userRepository.findAll());
     }
@@ -136,6 +146,19 @@ public class UserService implements UserDetailsService {
             u.setPenalty(0);
         }
         userRepository.saveAll(users);
+    }
+
+    public ComplaintForWorker writeComplaintForEmployee(ComplaintForWorkerDto complaint) {
+        ComplaintForWorker complaintForEmployee = new ComplaintForWorker();
+        complaintForEmployee.setCenterAdministrator(findById(complaint.getCenterAdministrator()));
+        complaintForEmployee.setUser(findByEmail(complaint.getUser()));
+        complaintForEmployee.setText(complaint.getText());
+        complaintForEmployeeRepository.save(complaintForEmployee);
+        return complaintForEmployee;
+    }
+
+    private CenterAdministrator findById(Integer id) {
+        return centerEmployeeRepository.findById(id).orElse(null);
     }
 
 /*    @Override

@@ -2,6 +2,8 @@ package BloodClinic.bloodclinic.controller;
 
 import BloodClinic.bloodclinic.dto.AppointmentDto;
 import BloodClinic.bloodclinic.dto.CenterDto;
+import BloodClinic.bloodclinic.dto.ComplaintForCenterDto;
+import BloodClinic.bloodclinic.model.ComplaintForCenter;
 import BloodClinic.bloodclinic.security.util.TokenUtils;
 import BloodClinic.bloodclinic.service.CenterService;
 import lombok.Getter;
@@ -13,6 +15,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,6 +37,12 @@ public class CenterController {
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<AppointmentDto>> findAvailableAppointments(@PathVariable Integer id, @RequestParam(value = "sort_by", defaultValue = "") String sort_by){
         return new ResponseEntity<>(centerService.findAvailableAppointments(id, sort_by), HttpStatus.OK);
+    }
+
+    @PostMapping("/complaint/{id}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<ComplaintForCenter> writeComplaintForCenter(@RequestBody ComplaintForCenterDto complaint){
+        return new ResponseEntity<>(centerService.writeComplaintForCenter(complaint), HttpStatus.OK);
     }
 
     /*@GetMapping()

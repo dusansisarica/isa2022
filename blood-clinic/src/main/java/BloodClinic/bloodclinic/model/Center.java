@@ -1,5 +1,7 @@
 package BloodClinic.bloodclinic.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +25,7 @@ public class Center {
     @Column(name = "avg_grade")
     private double avgGrade;
     @OneToMany(fetch = FetchType.EAGER)
+    @JsonBackReference
     private Set<Appointment> appointments;
 
     public Center() {

@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-@RequestMapping(value = "api/appointments", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "api/appointments")
 @RestController
 @CrossOrigin
 public class AppointmentController {
@@ -38,6 +38,7 @@ public class AppointmentController {
     public ResponseEntity<List<AppointmentDto>> findFinishedAppointments(HttpServletRequest request, @RequestParam(value = "sort_by", defaultValue = "") String sort_by){
         return new ResponseEntity<>(appointmentService.findFinishedAppointmentsForUser(tokenUtils.getEmailFromToken(tokenUtils.getToken(request)), sort_by), HttpStatus.OK);
     }
+
 
     @GetMapping("/scheduled")
     @PreAuthorize("hasRole('USER')")

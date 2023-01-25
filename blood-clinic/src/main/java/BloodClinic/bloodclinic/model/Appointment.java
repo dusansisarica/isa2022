@@ -1,6 +1,9 @@
 package BloodClinic.bloodclinic.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,7 +34,15 @@ public class Appointment {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "center_id", nullable = false)
+    @JsonManagedReference
     private Center center;
+
+    @ManyToOne
+    @JsonManagedReference
+    private CenterAdministrator centerAdministrator;
+
+    public Appointment(){
+    }
 
    /* @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_scheduled_appointment",

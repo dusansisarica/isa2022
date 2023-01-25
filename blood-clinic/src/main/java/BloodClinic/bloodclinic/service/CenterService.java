@@ -2,10 +2,13 @@ package BloodClinic.bloodclinic.service;
 
 import BloodClinic.bloodclinic.dto.AppointmentDto;
 import BloodClinic.bloodclinic.dto.CenterDto;
+import BloodClinic.bloodclinic.dto.ComplaintForCenterDto;
 import BloodClinic.bloodclinic.mapper.CenterDtoMapper;
 import BloodClinic.bloodclinic.model.Appointment;
 import BloodClinic.bloodclinic.model.Center;
+import BloodClinic.bloodclinic.model.ComplaintForCenter;
 import BloodClinic.bloodclinic.repository.CenterRepositrory;
+import BloodClinic.bloodclinic.repository.ComplaintForCenterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,10 @@ public class CenterService {
     private AppointmentService appointmentService;
     @Autowired
     private CenterDtoMapper centerDtoMapper;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private ComplaintForCenterRepository complaintRepository;
 
     public List<CenterDto> findAll(String sort_by) {
         switch (sort_by) {
@@ -76,5 +83,14 @@ public class CenterService {
         List<Center> allCenters = centerRepositrory.findAll((Sort.by(Sort.Direction.DESC, "avgGrade")));
         //allCenters.sort(Comparator.comparing(Center::getName));
         return centerDtoMapper.fromModeltoDTOList(allCenters);
+    }
+
+    public ComplaintForCenter writeComplaintForCenter(ComplaintForCenterDto complaint) {
+        ComplaintForCenter complaintForCenter = new ComplaintForCenter();
+        complaintForCenter.setCenter(centerRepositrory.findById(complaint.getCenter()).orElse(null));
+        complaintForCenter.setUser(userService.findByEmail(complaint.getUser()));
+        complaintForCenter.setText(complaint.getText());
+        complaintRepository.save(complaintForCenter);
+        return complaintForCenter;
     }
 }
