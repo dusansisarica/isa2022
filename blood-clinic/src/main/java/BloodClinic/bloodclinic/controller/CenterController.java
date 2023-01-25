@@ -1,6 +1,7 @@
 package BloodClinic.bloodclinic.controller;
 
 import BloodClinic.bloodclinic.dto.AppointmentDto;
+import BloodClinic.bloodclinic.dto.CenterAppointmentDto;
 import BloodClinic.bloodclinic.dto.CenterDto;
 import BloodClinic.bloodclinic.dto.ComplaintForCenterDto;
 import BloodClinic.bloodclinic.model.ComplaintForCenter;
@@ -35,7 +36,7 @@ public class CenterController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<List<AppointmentDto>> findAvailableAppointments(@PathVariable Integer id, @RequestParam(value = "sort_by", defaultValue = "") String sort_by){
+    public ResponseEntity<CenterAppointmentDto> findAvailableAppointments(@PathVariable Integer id, @RequestParam(value = "sort_by", defaultValue = "") String sort_by){
         return new ResponseEntity<>(centerService.findAvailableAppointments(id, sort_by), HttpStatus.OK);
     }
 

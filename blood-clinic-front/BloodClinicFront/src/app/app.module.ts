@@ -8,11 +8,15 @@ import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
 import { DemoNgZorroAntdModule } from './ng-zorro-antd.module';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
+import { AllCentersComponent } from './components/all-centers/all-centers.component';
+import { AuthInterceptor } from './interceptor/auth-interceptor';
+import { OneCenterComponent } from './components/one-center/one-center.component';
 
 registerLocaleData(en);
 
@@ -20,7 +24,10 @@ registerLocaleData(en);
   declarations: [
     AppComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    HomepageComponent,
+    AllCentersComponent,
+    OneCenterComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +39,7 @@ registerLocaleData(en);
     ReactiveFormsModule
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: NZ_I18N, useValue: en_US }
   ],
   bootstrap: [AppComponent]

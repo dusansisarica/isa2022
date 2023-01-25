@@ -1,0 +1,23 @@
+    <nz-table #basicTable [nzData]="centers">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Description</th>
+          <th>Average Grade</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let center of centers">
+          <td >{{center.name }}</td>
+          <td>{{ center.address }}</td>
+          <td>{{ center.description }}</td>
+          <td>{{ center.avgGrade }}</td>
+          <td>
+            <a (click)="showCenter(center.id)" >Show Available Appointments</a>
+          </td>
+        </tr>
+      </tbody>
+     
+    </nz-table> 

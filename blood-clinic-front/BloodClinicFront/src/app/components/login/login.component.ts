@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
         password: this.validateForm.value.password
     }
     this.authService.login(body).subscribe(data => {
+      localStorage.setItem('jwt', data.accessToken);
       const user = data;
       localStorage.setItem('user', JSON.stringify(user));
       this.router.navigate(['homepage']);

@@ -15,8 +15,9 @@ import java.time.LocalDateTime;
 @Setter
 public class AppointmentDto {
     private Integer id;
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="EEE MMM dd HH:mm:ss")
     private LocalDateTime startDate;
-    private Duration duration;
+    private Integer duration;
     public Center center;
     private CenterAdministrator centerAdministrator;
     //private UserDto user;

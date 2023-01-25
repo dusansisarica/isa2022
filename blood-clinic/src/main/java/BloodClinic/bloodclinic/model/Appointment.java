@@ -26,7 +26,7 @@ public class Appointment {
     private LocalDateTime startDate;
 
     @Column(name = "duration", unique = false, nullable = true)
-    private Duration duration;
+    private Integer duration;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = true)

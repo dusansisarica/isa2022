@@ -1,0 +1,33 @@
+<h1 class="name">{{center.name}}</h1>
+<label class="nzm"><b>Address:</b> </label>
+<br>
+<label class="nzm">-> {{center.address}} </label>
+<br>
+<label class="nzm"><b>About: </b></label>
+<br>
+<label class="nzm">-> {{center.description}} </label>
+<br>
+<label class="nzm"><b>Average Grade: </b></label>
+<br>
+<label class="nzm">-> {{center.avgGrade}} </label>
+<br>
+<br>
+<label class="nzm"><b>Available appointments in this center:</b></label>
+<nz-table #basicTable [nzData]="appointments">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Duration</th>
+        <th>Employee</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let appointment of appointments">
+        <td>{{ appointment.startDate }}</td>
+        <td>{{ appointment.duration }} minutes</td>
+        <td>{{ appointment.centerAdministrator.name }} {{appointment.centerAdministrator.surname}}</td>
+        <td><a (click)="scheduleAppointment(appointment.id)"><b>Schedule na appointment</b></a></td>
+      </tr>
+    </tbody>
+  </nz-table> 

@@ -1,6 +1,7 @@
 package BloodClinic.bloodclinic.service;
 
 import BloodClinic.bloodclinic.dto.AppointmentDto;
+import BloodClinic.bloodclinic.dto.CenterAppointmentDto;
 import BloodClinic.bloodclinic.dto.CenterDto;
 import BloodClinic.bloodclinic.dto.ComplaintForCenterDto;
 import BloodClinic.bloodclinic.mapper.CenterDtoMapper;
@@ -47,19 +48,26 @@ public class CenterService {
         }
     }
 
-    public List<AppointmentDto> findAvailableAppointments(Integer id, String sort_by) {
+    public CenterAppointmentDto findAvailableAppointments(Integer id, String sort_by) {
         List<Appointment> availableAppointments = appointmentService.findAllAvailableForOneCenterModel(centerRepositrory.findById(id).orElse(null));
+        CenterAppointmentDto centerAppointmentDto = new CenterAppointmentDto();
+        centerAppointmentDto.setCenter(centerRepositrory.findById(id).orElse(null));
         switch (sort_by) {
             case "asc(date)":
-                return appointmentService.sortFinishedAppointmentsByDateAsc(availableAppointments);
+                centerAppointmentDto.setAppointments(appointmentService.sortFinishedAppointmentsByDateAsc(availableAppointments));
+                return centerAppointmentDto;
             case "desc(date)":
-                return appointmentService.sortFinishedAppointmentsByDateDesc(availableAppointments);
+                centerAppointmentDto.setAppointments(appointmentService.sortFinishedAppointmentsByDateDesc(availableAppointments));
+                return centerAppointmentDto;
             case "asc(duration)":
-                return appointmentService.sortFinishedAppointmentsByDurationAsc(availableAppointments);
+                centerAppointmentDto.setAppointments(appointmentService.sortFinishedAppointmentsByDurationAsc(availableAppointments));
+                return centerAppointmentDto;
             case "desc(duration)":
-                return appointmentService.sortFinishedAppointmentsByDurationDesc(availableAppointments);
+                centerAppointmentDto.setAppointments(appointmentService.sortFinishedAppointmentsByDurationDesc(availableAppointments));
+                return centerAppointmentDto;
             default:
-                return appointmentService.findAllAvailableForOneCenter(centerRepositrory.findById(id).orElse(null));
+                centerAppointmentDto.setAppointments(appointmentService.findAllAvailableForOneCenter(centerRepositrory.findById(id).orElse(null)));
+                return centerAppointmentDto;
         }
     }
 
