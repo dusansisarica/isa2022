@@ -26,4 +26,5 @@ public class UserDto {
     public String verificationCode;
     public Integer penalty;
     public Set<AppointmentDto> appointments;
+    public boolean survey;
 }

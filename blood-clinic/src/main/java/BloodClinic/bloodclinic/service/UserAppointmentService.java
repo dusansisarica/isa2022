@@ -7,6 +7,8 @@ import BloodClinic.bloodclinic.repository.UserAppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserAppointmentService {
     @Autowired
@@ -18,5 +20,9 @@ public class UserAppointmentService {
 
     public UserAppointment findAppointment(User user, Appointment appointment){
         return userAppointmentRepository.findByAppointmentAndUser(appointment, user);
+    }
+
+    public List<UserAppointment> findAllByUser(User user){
+        return userAppointmentRepository.findAllByUser(user);
     }
 }

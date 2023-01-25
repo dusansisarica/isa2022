@@ -12,6 +12,7 @@ import BloodClinic.bloodclinic.repository.UserRepository;
 import BloodClinic.bloodclinic.security.util.TokenUtils;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -58,6 +59,9 @@ public class UserService implements UserDetailsService {
         String randomCode = RandomString.make(64);
         user.setVerificationCode(randomCode);
         user.setPenalty(0);
+        User us = userRepository.findAll((Sort.by(Sort.Direction.DESC, "id"))).stream().findFirst().orElse(null);
+        user.setId(us.getId()+1);
+        user.setSurvey(false);
         sendVerificationEmail(user, siteURL);
         return userDTOMapper.fromModeltoDTO(userRepository.save(user));
     }

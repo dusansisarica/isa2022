@@ -11,9 +11,9 @@ insert into address (address, city, country) VALUES ('Augusta Cesarca', 'Valjevo
 insert into address (address, city, country) VALUES ('Novaka Pejcica 26', 'Novi Sad', 'Serbia');
 
 /*sifra je Dusan123 za oba*/
-insert into users (id, email, gender, activated, deleted, jmbg, job, name, password, phone_number, surname, address_id, penalty) VALUES (1, 'dsisarica40@gmail.com', 'MALE', true, false, '124124124', 'student', 'Dusan', '$2a$10$nU6EsmjOywLNk0wXyJNkq.q0Wjp8A1iUZy9AVLG6tjUdHpNMzWOEe', '062131241', 'Sisarica', 1, 0);
-insert into users (id, email, gender, activated, deleted, jmbg, job, name, password, phone_number, surname, address_id, penalty) VALUES (2, 'dukisuzuki@gmail.com', 'MALE', true, false, '124124124', 'student', 'Dusan', '$2a$10$nU6EsmjOywLNk0wXyJNkq.q0Wjp8A1iUZy9AVLG6tjUdHpNMzWOEe', '062131241', 'Sisarica', 1, 2);
-insert into users (id, email, gender, activated, deleted, jmbg, job, name, password, phone_number, surname, address_id, penalty) VALUES (3, 'dusansisarica@gmail.com', 'MALE', true, false, '124124124', 'student', 'Dusan', '$2a$10$nU6EsmjOywLNk0wXyJNkq.q0Wjp8A1iUZy9AVLG6tjUdHpNMzWOEe', '062131241', 'Sisarica', 1, 2);
+insert into users (id, email, gender, activated, deleted, jmbg, job, name, password, phone_number, surname, address_id, penalty, survey) VALUES (1, 'dsisarica40@gmail.com', 'MALE', true, false, '124124124', 'student', 'Dusan', '$2a$10$nU6EsmjOywLNk0wXyJNkq.q0Wjp8A1iUZy9AVLG6tjUdHpNMzWOEe', '062131241', 'Sisarica', 1, 0, true);
+insert into users (id, email, gender, activated, deleted, jmbg, job, name, password, phone_number, surname, address_id, penalty, survey) VALUES (2, 'dukisuzuki@gmail.com', 'MALE', true, false, '124124124', 'student', 'Dusan', '$2a$10$nU6EsmjOywLNk0wXyJNkq.q0Wjp8A1iUZy9AVLG6tjUdHpNMzWOEe', '062131241', 'Sisarica', 1, 2, true);
+insert into users (id, email, gender, activated, deleted, jmbg, job, name, password, phone_number, surname, address_id, penalty, survey) VALUES (3, 'dusansisarica@gmail.com', 'MALE', true, false, '124124124', 'student', 'Dusan', '$2a$10$nU6EsmjOywLNk0wXyJNkq.q0Wjp8A1iUZy9AVLG6tjUdHpNMzWOEe', '062131241', 'Sisarica', 1, true);
 insert into center_administrator (id, email, gender, activated, deleted, jmbg, job, name, password, phone_number, surname, address_id, penalty, center_id) VALUES (4, 'sisarica.u@gmail.com', 'MALE', true, false, '124124124', 'student', 'Uros', '$2a$10$nU6EsmjOywLNk0wXyJNkq.q0Wjp8A1iUZy9AVLG6tjUdHpNMzWOEe', '062131241', 'Sisarica', 1, 2, 1);
 insert into center_administrator (id, email, gender, activated, deleted, jmbg, job, name, password, phone_number, surname, address_id, penalty, center_id) VALUES (5, 'centar1@gmail.com', 'MALE', true, false, '124124124', 'student', 'Uros', '$2a$10$nU6EsmjOywLNk0wXyJNkq.q0Wjp8A1iUZy9AVLG6tjUdHpNMzWOEe', '062131241', 'Sisarica', 1, 2, 2);
 insert into center_administrator (id, email, gender, activated, deleted, jmbg, job, name, password, phone_number, surname, address_id, penalty, center_id) VALUES (6, 'centar2@gmail.com', 'MALE', true, false, '124124124', 'student', 'Uros', '$2a$10$nU6EsmjOywLNk0wXyJNkq.q0Wjp8A1iUZy9AVLG6tjUdHpNMzWOEe', '062131241', 'Sisarica', 1, 2, 1);
@@ -62,6 +62,9 @@ insert into appointment (start_date, duration, user_id, done, center_id, center_
 insert into appointment (start_date, duration, user_id, done, center_id, center_administrator_id) VALUES ('28/01/2023 10:30', 20, null, false, 2, 5);
 insert into appointment (start_date, duration, user_id, done, center_id, center_administrator_id) VALUES ('29/01/2023 11:30', 10, null, false, 2, 5);
 insert into appointment (start_date, duration, user_id, done, center_id, center_administrator_id) VALUES ('27/01/2023 12:30', 5, null, false, 3, 9);
+insert into appointment (start_date, duration, user_id, done, center_id, center_administrator_id) VALUES ('13/08/2023 12:30', 5, null, false, 3, 9);
+insert into appointment (start_date, duration, user_id, done, center_id, center_administrator_id) VALUES ('21/08/2023 12:30', 5, null, false, 3, 9);
+insert into appointment (start_date, duration, user_id, done, center_id, center_administrator_id) VALUES ('21/08/2024 12:30', 5, null, false, 3, 9);
 
 insert into center_appointments (center_id, appointments_id) VALUES (1,1);
 insert into center_appointments (center_id, appointments_id) VALUES (1,10);
@@ -72,6 +75,9 @@ insert into center_appointments (center_id, appointments_id) VALUES (2,12);
 insert into center_appointments (center_id, appointments_id) VALUES (2,13);
 insert into center_appointments (center_id, appointments_id) VALUES (3,2);
 insert into center_appointments (center_id, appointments_id) VALUES (3,14);
+insert into center_appointments (center_id, appointments_id) VALUES (3,15);
+insert into center_appointments (center_id, appointments_id) VALUES (3,16);
+insert into center_appointments (center_id, appointments_id) VALUES (3,16);
 insert into center_appointments (center_id, appointments_id) VALUES (4,5);
 insert into center_appointments (center_id, appointments_id) VALUES (4,6);
 insert into center_appointments (center_id, appointments_id) VALUES (4,8);

@@ -19,7 +19,6 @@ import javax.persistence.JoinColumn;
 @Setter
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     @Column(name = "email")
     private String email;
@@ -55,6 +54,9 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name="role_id", referencedColumnName = "id"))
     private List<Role> roles;
+
+    @Column
+    private boolean survey;
 
     public Integer getId() {
         return id;

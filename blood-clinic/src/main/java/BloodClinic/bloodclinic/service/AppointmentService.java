@@ -35,10 +35,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
-import java.util.Base64;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class AppointmentService {
@@ -127,7 +124,17 @@ public class AppointmentService {
     public AppointmentDto scheduleAppointment(Integer id, String email) throws Exception {
         Appointment appointment = appointmentRepository.findById(id).orElse(null);
         User user = userService.findByEmail(email);
-        if (userAppointmentService.findAppointment(user, appointment) != null || user.getPenalty() >= 3){
+        if (userAppointmentService.findAppointment(user, appointment) != null || user.getPenalty() >= 3 || !user.isSurvey()){
+            return null;
+        }
+        List<UserAppointment> userAppointments = userAppointmentService.findAllByUser(user);
+        List<Appointment> appointments = new ArrayList<>();
+        for (UserAppointment ua : userAppointments){
+            appointments.add(ua.getAppointment());
+        }
+        appointments.sort(Comparator.comparing(Appointment::getStartDate).reversed());
+        Appointment app = appointments.stream().findFirst().orElse(null);
+        if(appointment.getStartDate().isBefore(app.getStartDate().plusMonths(6))){
             return null;
         }
         appointment.setUser(user);
