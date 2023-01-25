@@ -157,7 +157,10 @@ public class UserService implements UserDetailsService {
         return complaintForEmployee;
     }
 
-    private CenterAdministrator findById(Integer id) {
+    public User findUserById(Integer id){
+        return userRepository.findById(id).orElse(null);
+    }
+    public CenterAdministrator findById(Integer id) {
         return centerEmployeeRepository.findById(id).orElse(null);
     }
 
