@@ -41,6 +41,7 @@ export class AllComplaintsCenterComponent implements OnInit {
       center : id
     }
     this.complaintsService.answer(body).subscribe();
+    window.location.reload();
   }
 
 }

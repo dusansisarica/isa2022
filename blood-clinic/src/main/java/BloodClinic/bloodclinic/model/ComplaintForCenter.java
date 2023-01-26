@@ -28,5 +28,8 @@ public class ComplaintForCenter {
     @Column
     private String text;
 
+    @Column
+    private boolean answered;
+
 
 }

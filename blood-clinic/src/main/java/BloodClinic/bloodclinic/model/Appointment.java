@@ -41,6 +41,7 @@ public class Appointment {
     @JsonManagedReference
     private CenterAdministrator centerAdministrator;
 
+
     public Appointment(){
     }
 

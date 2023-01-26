@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.activation.DataHandler;
 import javax.mail.BodyPart;
@@ -95,7 +96,7 @@ public class AppointmentService {
     public AppointmentDto cancelScheduledAppointmentsForUser(Integer id) {
         Appointment appointment = appointmentRepository.findById(id).orElse(null);
         if (canAppointmentBeCanceled(appointment)) return cancelAppointment(appointment);
-        return appointmentDtoMapper.fromModeltoDTO(appointment);
+        return null;
     }
 
     public boolean canAppointmentBeCanceled(Appointment appointment) {
@@ -122,6 +123,7 @@ public class AppointmentService {
 
 
     public AppointmentDto scheduleAppointment(Integer id, String email) throws Exception {
+        Thread.sleep(3000);
         Appointment appointment = appointmentRepository.findById(id).orElse(null);
         User user = userService.findByEmail(email);
         if (userAppointmentService.findAppointment(user, appointment) != null || user.getPenalty() >= 3 || !user.isSurvey()){

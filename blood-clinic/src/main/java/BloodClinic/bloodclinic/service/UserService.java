@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,13 +49,14 @@ public class UserService implements UserDetailsService {
     @Autowired
     private ComplaintForEmployeeRepository complaintForEmployeeRepository;
 
-    public UserDto save(RegistrationDto dto, String siteURL)throws MessagingException, UnsupportedEncodingException {
+    public UserDto save(RegistrationDto dto, String siteURL) throws MessagingException, UnsupportedEncodingException, InterruptedException {
         User user = userDTOMapper.fromRegistrationDTOtoModel(dto);
         if (userRepository.findByEmail(user.getEmail()) != null){
             return null;
         }
         user.setActivated(false);
         user.setDeleted(false);
+        Thread.sleep(3000);
         List<Role> roles = new ArrayList<>();
         roles.add(roleService.findByName("ROLE_USER"));
         user.setRoles(roles);

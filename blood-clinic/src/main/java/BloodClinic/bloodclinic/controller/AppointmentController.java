@@ -49,7 +49,9 @@ public class AppointmentController {
     @GetMapping("/cancel/{id}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<AppointmentDto> cancelScheduledAppointments(@PathVariable Integer id){
-        return new ResponseEntity<>(appointmentService.cancelScheduledAppointmentsForUser(id), HttpStatus.OK);
+        AppointmentDto appointmentDto = appointmentService.cancelScheduledAppointmentsForUser(id);
+        if (appointmentDto != null) return new ResponseEntity<>(appointmentDto, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/schedule/{id}")

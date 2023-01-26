@@ -25,4 +25,7 @@ public class ComplaintForWorker {
 
     @Column
     private String text;
+
+    @Column
+    private boolean answered;
 }

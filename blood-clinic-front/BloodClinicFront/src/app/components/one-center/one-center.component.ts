@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CenterService } from 'src/app/services/center.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-one-center',
@@ -32,7 +33,12 @@ export class OneCenterComponent implements OnInit {
   public scheduleAppointment(id : any){
     this.centerService.scheduleAppointment(id).subscribe(data => {
       console.log(data);
+      Swal.fire('Sucess!', 'success').then((result) => {this.router.navigate(['homepage/centers']);});
       window.location.reload();
+    }, error => { 
+      Swal.fire({icon: 'error',
+      title: 'Oops...',
+      text: 'Something went wrong!'}).then()   
     });
   }
 

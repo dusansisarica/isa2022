@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registration',
@@ -42,7 +43,7 @@ export class RegistrationComponent implements OnInit {
   }
   console.log(body);
   this.authService.register(body).subscribe(data => {
-    this.router.navigateByUrl(`login`);
+    Swal.fire('Sucess registration!', 'success').then((result) => {this.router.navigate(['login']);});
     
   }, error => {
     this.errorRegister = true;

@@ -37,5 +37,6 @@ export class AllComplaintsEmployeeComponent implements OnInit {
     }
     console.log(id);
     this.complaintsService.answer(body).subscribe();
+    window.location.reload();
   }
 }

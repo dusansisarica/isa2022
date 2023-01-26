@@ -37,7 +37,7 @@ public class ComplaintsService {
 
     public List<ComplaintForCenterReturnDto> findAllForCenter() {
         List<ComplaintForCenterReturnDto> dto = new ArrayList<>();
-        for (ComplaintForCenter c : complaintForCenterRepository.findAll() ){
+        for (ComplaintForCenter c : complaintForCenterRepository.findAllByAnsweredFalse() ){
             ComplaintForCenterReturnDto newDto = new ComplaintForCenterReturnDto();
             newDto.setId(c.getId());
             newDto.setCenter(c.getCenter());
@@ -50,7 +50,7 @@ public class ComplaintsService {
 
     public List<ComplaintForEmployeeReturnDto> findAllForEmployee() {
         List<ComplaintForEmployeeReturnDto> dto = new ArrayList<>();
-        for (ComplaintForWorker c : complaintForEmployeeRepository.findAll()){
+        for (ComplaintForWorker c : complaintForEmployeeRepository.findAllByAnsweredFalse()){
             ComplaintForEmployeeReturnDto newDto = new ComplaintForEmployeeReturnDto();
             newDto.setCenterAdministrator(c.getCenterAdministrator());
             newDto.setId(c.getId());
@@ -67,11 +67,17 @@ public class ComplaintsService {
             answer.setComplaintForCenter(null);
         } else {
             answer.setComplaintForCenter(complaintForCenterRepository.findById(complaintAnswer.getCenter()).orElse(null));
+            ComplaintForCenter c = complaintForCenterRepository.findById(complaintAnswer.getCenter()).orElse(null);
+            c.setAnswered(true);
+            complaintForCenterRepository.save(c);
         }
         if (complaintAnswer.getEmployee() == null) {
             answer.setComplaintForEmployee(null);
         } else {
             answer.setComplaintForEmployee(complaintForEmployeeRepository.findById(complaintAnswer.getEmployee()).orElse(null));
+            ComplaintForWorker c = complaintForEmployeeRepository.findById(complaintAnswer.getEmployee()).orElse(null);
+            c.setAnswered(true);
+            complaintForEmployeeRepository.save(c);
         }
         answer.setAnswer(complaintAnswer.getAnswer());
         answer.setEmail(complaintAnswer.getEmail());
