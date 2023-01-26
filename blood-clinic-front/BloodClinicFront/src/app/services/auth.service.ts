@@ -18,4 +18,8 @@ export class AuthService {
   public register(body : any): Observable<any> {
     return this.http.post(this.baseUrl + 'api/registration', body);
   }
+
+  public changeSurvey(): Observable<any> {
+    return this.http.put(this.baseUrl + 'api/user/survey', null);
+  }
 }

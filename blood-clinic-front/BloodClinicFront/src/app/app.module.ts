@@ -22,6 +22,7 @@ import { FinishedAppointmentsComponent } from './components/finished-appointment
 import { AllComplaintsCenterComponent } from './components/all-complaints/all-complaints.component';
 import { AllComplaintsEmployeeComponent } from './components/all-complaints-employee/all-complaints-employee.component';
 import { AnswersComponent } from './components/answers/answers.component';
+import { SurveyComponent } from './components/survey/survey.component';
 
 registerLocaleData(en);
 
@@ -37,7 +38,8 @@ registerLocaleData(en);
     FinishedAppointmentsComponent,
     AllComplaintsCenterComponent,
     AllComplaintsEmployeeComponent,
-    AnswersComponent
+    AnswersComponent,
+    SurveyComponent
   ],
   imports: [
     BrowserModule,

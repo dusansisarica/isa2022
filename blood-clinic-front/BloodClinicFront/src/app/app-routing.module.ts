@@ -10,6 +10,7 @@ import { FinishedAppointmentsComponent } from './components/finished-appointment
 import { AllComplaintsCenterComponent } from './components/all-complaints/all-complaints.component';
 import { AllComplaintsEmployeeComponent } from './components/all-complaints-employee/all-complaints-employee.component';
 import { AnswersComponent } from './components/answers/answers.component';
+import { SurveyComponent } from './components/survey/survey.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'login'},
@@ -22,7 +23,8 @@ const routes: Routes = [
     {path: 'appointments/finished', component: FinishedAppointmentsComponent},
     {path: 'complaints/center', component: AllComplaintsCenterComponent},
     {path: 'complaints/employee', component: AllComplaintsEmployeeComponent},
-    {path: 'complaints/answers', component: AnswersComponent}
+    {path: 'complaints/answers', component: AnswersComponent},
+    {path: 'survey', component: SurveyComponent}
   ]},
   
 ];

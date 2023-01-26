@@ -5,7 +5,8 @@
         <li *ngIf="isUser()" nz-menu-item  (click)="showCenters()">Centers </li> 
         <li *ngIf="isUser()" nz-menu-item  (click)="showScheduledAppointments()">Scheduled Appointments </li>   
         <li *ngIf="isUser()" nz-menu-item  (click)="showFinishedAppointments()">Finished Appointments </li>  
-        <li *ngIf="isUser()" nz-menu-item  (click)="showAnsweredComplaints()">Complaints </li>  
+        <li *ngIf="isUser()" nz-menu-item  (click)="showAnsweredComplaints()">Complaints </li>
+        <li *ngIf="isUser()" nz-menu-item  (click)="survey()">Survey </li>    
         <li *ngIf="isAdmin()" nz-menu-item  (click)="showCenterComplaints()">Show Center Complaints </li>  
         <li *ngIf="isAdmin()" nz-menu-item  (click)="showEmployeeComplaints()">Show Employee Complaints </li>  
         <li nz-menu-item (click)="logout()">Logout</li>

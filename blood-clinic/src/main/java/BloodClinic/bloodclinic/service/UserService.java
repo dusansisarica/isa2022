@@ -50,6 +50,9 @@ public class UserService implements UserDetailsService {
 
     public UserDto save(RegistrationDto dto, String siteURL)throws MessagingException, UnsupportedEncodingException {
         User user = userDTOMapper.fromRegistrationDTOtoModel(dto);
+        if (userRepository.findByEmail(user.getEmail()) != null){
+            return null;
+        }
         user.setActivated(false);
         user.setDeleted(false);
         List<Role> roles = new ArrayList<>();
@@ -166,6 +169,13 @@ public class UserService implements UserDetailsService {
     }
     public CenterAdministrator findById(Integer id) {
         return centerEmployeeRepository.findById(id).orElse(null);
+    }
+
+    public UserDto changeSurvey(String email) {
+        User u = userRepository.findByEmail(email);
+        u.setSurvey(true);
+        userRepository.save(u);
+        return userDTOMapper.fromModeltoDTO(u);
     }
 
 /*    @Override

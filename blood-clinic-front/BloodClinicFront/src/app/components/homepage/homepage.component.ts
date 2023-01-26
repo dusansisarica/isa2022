@@ -50,4 +50,8 @@ export class HomepageComponent implements OnInit {
     this.router.navigateByUrl(`homepage/complaints/answers`);
   }
 
+  public survey(){
+    this.router.navigateByUrl(`homepage/survey`);
+  }
+
 }

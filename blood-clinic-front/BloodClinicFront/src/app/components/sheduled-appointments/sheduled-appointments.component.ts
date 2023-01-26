@@ -22,6 +22,7 @@ export class SheduledAppointmentsComponent implements OnInit {
     this.centerService.cancelAppointment(id).subscribe(data => {
       this.appointments = data;
     })
+    window.location.reload();
   }
 
 }

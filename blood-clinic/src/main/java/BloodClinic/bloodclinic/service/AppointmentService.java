@@ -134,7 +134,7 @@ public class AppointmentService {
         }
         appointments.sort(Comparator.comparing(Appointment::getStartDate).reversed());
         Appointment app = appointments.stream().findFirst().orElse(null);
-        if(appointment.getStartDate().isBefore(app.getStartDate().plusMonths(6))){
+        if(app!=null && appointment.getStartDate().isBefore(app.getStartDate().plusMonths(6))){
             return null;
         }
         appointment.setUser(user);
