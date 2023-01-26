@@ -6,6 +6,7 @@ import BloodClinic.bloodclinic.model.UserAppointment;
 import BloodClinic.bloodclinic.repository.UserAppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class UserAppointmentService {
         userAppointmentRepository.save(userAppointment);
     }
 
+    @Transactional
     public UserAppointment findAppointment(User user, Appointment appointment){
         return userAppointmentRepository.findByAppointmentAndUser(appointment, user);
     }
