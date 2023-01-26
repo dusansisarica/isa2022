@@ -14,6 +14,7 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.PessimisticLockingFailureException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -122,33 +123,37 @@ public class AppointmentService {
     }
 
 
+    @Transactional
     public AppointmentDto scheduleAppointment(Integer id, String email) throws Exception {
-        Thread.sleep(3000);
-        Appointment appointment = appointmentRepository.findById(id).orElse(null);
-        User user = userService.findByEmail(email);
-        if (userAppointmentService.findAppointment(user, appointment) != null || user.getPenalty() >= 3 || !user.isSurvey()){
-            return null;
+        try{
+            Appointment appointment = appointmentRepository.findOneById(id);
+            User user = userService.findByEmail(email);
+            if (userAppointmentService.findAppointment(user, appointment) != null || user.getPenalty() >= 3 || !user.isSurvey()){
+                return null;
+            }
+            List<UserAppointment> userAppointments = userAppointmentService.findAllByUser(user);
+            List<Appointment> appointments = new ArrayList<>();
+            for (UserAppointment ua : userAppointments){
+                appointments.add(ua.getAppointment());
+            }
+            appointments.sort(Comparator.comparing(Appointment::getStartDate).reversed());
+            Appointment app = appointments.stream().findFirst().orElse(null);
+            if(app!=null && appointment.getStartDate().isBefore(app.getStartDate().plusMonths(6))){
+                return null;
+            }
+            appointment.setUser(user);
+            user.getAppointments().add(appointment);
+            appointmentRepository.save(appointment);
+            userService.save(user);
+            UserAppointment userAppointment = new UserAppointment();
+            userAppointment.setAppointment(appointment);
+            userAppointment.setUser(user);
+            userAppointmentService.save(userAppointment);
+            sendEmail(appointment);
+            return appointmentDtoMapper.fromModeltoDTO(appointment);
+        } catch (PessimisticLockingFailureException e){
+            throw new PessimisticLockingFailureException("Appointment already scheduled!");
         }
-        List<UserAppointment> userAppointments = userAppointmentService.findAllByUser(user);
-        List<Appointment> appointments = new ArrayList<>();
-        for (UserAppointment ua : userAppointments){
-            appointments.add(ua.getAppointment());
-        }
-        appointments.sort(Comparator.comparing(Appointment::getStartDate).reversed());
-        Appointment app = appointments.stream().findFirst().orElse(null);
-        if(app!=null && appointment.getStartDate().isBefore(app.getStartDate().plusMonths(6))){
-            return null;
-        }
-        appointment.setUser(user);
-        user.getAppointments().add(appointment);
-        appointmentRepository.save(appointment);
-        userService.save(user);
-        UserAppointment userAppointment = new UserAppointment();
-        userAppointment.setAppointment(appointment);
-        userAppointment.setUser(user);
-        userAppointmentService.save(userAppointment);
-        sendEmail(appointment);
-        return appointmentDtoMapper.fromModeltoDTO(appointment);
     }
 
     public static byte[] getQRCodeImage(String text) throws WriterException, IOException, WriterException {
@@ -163,7 +168,8 @@ public class AppointmentService {
         return pngData;
     }
 
-    private void sendEmail(Appointment appointment) throws Exception {
+    @Transactional
+    public void sendEmail(Appointment appointment) throws Exception {
         String toAddress = appointment.getUser().getEmail();
         String fromAddress = "bloodclinicisa";
         String senderName = "Blood Clinic";

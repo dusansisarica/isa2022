@@ -19,14 +19,6 @@ export class LoginComponent implements OnInit {
   constructor(private router:Router,private fb: FormBuilder, private authService: AuthService) {}
 
   submitForm(): void {
-    if (localStorage.getItem('jwt') !== null){
-      Swal.fire({icon: 'error',
-      title: 'Oops...',
-      text: 'Something went wrong!'}).then()
-    }
-    else{                       
-      timer(3000);
-      console.log()
       for (const i in this.validateForm.controls) {
         this.validateForm.controls[i].markAsDirty();
         this.validateForm.controls[i].updateValueAndValidity();
@@ -44,7 +36,6 @@ export class LoginComponent implements OnInit {
       }, error => { 
         this.errorLogin = true;   
       })
-    }
   }
 
   
